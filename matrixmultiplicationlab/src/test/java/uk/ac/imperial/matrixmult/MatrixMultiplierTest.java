@@ -6,6 +6,18 @@ import org.junit.Test;
 public class MatrixMultiplierTest {
 
   @Test
+  public void oneXoneZeroCheck() throws Exception {
+    Matrix m = MatrixBuilder.build(1, 1);
+    m.set(0, 0, 0.0);
+    Matrix n = MatrixBuilder.build(1, 1);
+    n.set(0, 0, 0.0);
+
+    Matrix result = MatrixMultiplier.multiply(m, n);
+
+    Assert.assertEquals(0.0, result.get(0, 0), 0.00001);
+  }
+
+  @Test
   public void basicCheck() throws Exception {
     Matrix m = MatrixBuilder.build(1, 1);
     m.set(0, 0, 3.0);

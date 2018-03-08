@@ -55,6 +55,12 @@ public class MatrixTest {
     m.set(rows, cols, 0.0);
   }
 
+  @Test(expected = IndexOutOfBoundsException.class)
+  public void IndexExceptionChk() {
+    Matrix m = MatrixBuilder.build(0,0);
+    m.get(0,0);
+  }
+
 
 }
 
