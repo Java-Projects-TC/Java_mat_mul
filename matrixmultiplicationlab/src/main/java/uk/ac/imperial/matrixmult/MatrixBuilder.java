@@ -18,9 +18,15 @@ public class MatrixBuilder {
     return matrix;
   }
 
-  // builds a matrix of all null values (values to be set)
+  // builds a matrix of all zero values
   public static Matrix build(int nRows, int nCols) {
-    return new ArrayBasedMatrix(nRows,nCols);
+    Matrix matrix = new ArrayBasedMatrix(nRows,nCols);
+    for (int i = 0; i < nRows; i++) {
+      for (int j = 0; j < nCols; j++) {
+        matrix.set(i, j, 0);
+      }
+    }
+    return matrix;
   }
 
 }

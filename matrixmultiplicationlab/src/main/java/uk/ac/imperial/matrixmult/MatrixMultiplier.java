@@ -4,6 +4,8 @@ public class MatrixMultiplier {
 
   // basic implementation using trivial algorithm
   public static Matrix multiply(Matrix a, Matrix b) throws Exception {
+    assert (a != null || b != null) :
+        "The coefficients matrix shouldn't be null";
     if (a.getNumColumns() != b.getNumRows()) {
       throw new RuntimeException("Illegal matrix dimensions.");
     }
