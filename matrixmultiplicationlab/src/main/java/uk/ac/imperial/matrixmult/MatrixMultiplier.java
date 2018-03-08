@@ -1,5 +1,8 @@
 package uk.ac.imperial.matrixmult;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MatrixMultiplier {
 
   // basic implementation using trivial algorithm
@@ -9,16 +12,18 @@ public class MatrixMultiplier {
     if (a.getNumColumns() != b.getNumRows()) {
       throw new RuntimeException("Illegal matrix dimensions.");
     }
+    List<Thread> threadList = new ArrayList<>();
 
     Matrix c = new ArrayBasedMatrix(a.getNumRows(), b.getNumColumns());
+
     for (int i = 0; i < c.getNumRows(); i++) {
-      for (int j = 0; j < c.getNumColumns(); j++) {
-        double entryValue = 0;
-        for (int k = 0; k < a.getNumColumns(); k++) {
-          entryValue += (a.get(i,k) * b.get(k,j));
-        }
-        c.set(i,j,entryValue);
-      }
+      threadList.add(new Thread(new MultiplyRows(a, b, c, i)));
+    }
+    for (Thread thread : threadList) {
+      thread.start();
+    }
+    for (Thread thread : threadList) {
+      thread.join();
     }
     return c;
   }
@@ -30,4 +35,31 @@ public class MatrixMultiplier {
     return null;
   }
 
+}
+
+class MultiplyRows implements Runnable {
+
+  Matrix a;
+  Matrix b;
+  Matrix c;
+  int rowToCalc;
+
+  public MultiplyRows(Matrix a, Matrix b, Matrix c, int row) {
+    this.a = a;
+    this.b = b;
+    this.c = c;
+    this.rowToCalc = row;
+  }
+
+  @Override
+  public void run() {
+
+    for (int j = 0; j < c.getNumColumns(); j++) {
+      double entryValue = 0;
+      for (int k = 0; k < a.getNumColumns(); k++) {
+        entryValue += (a.get(rowToCalc,k) * b.get(k,j));
+      }
+      c.set(rowToCalc,j,entryValue);
+    }
+  }
 }

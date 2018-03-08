@@ -23,20 +23,6 @@ public class MatrixTest {
     }
   }
 
-  // only does this for first element
-  @Test (expected = NullPointerException.class)
-  public void testNullUponInstantiation() throws NullPointerException {
-    int rows = 10;
-    int cols = 10;
-    Matrix m = new ArrayBasedMatrix(rows, cols);
-
-      for (int row = 0; row < rows; row++) {
-        for (int col = 0; col < cols; col++) {
-          m.get(row, col);
-      }
-    }
-  }
-
   @Test
   public void testBuildFromSmallSource() {
     final double source[][] = {

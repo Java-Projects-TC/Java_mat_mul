@@ -1,34 +1,31 @@
 package uk.ac.imperial.matrixmult;
 
-public class ArrayBasedMatrix implements Matrix{
+public class ArrayBasedMatrix implements Matrix {
 
-private ConcurrentArrayList<Double[]> matrix;
+  private double[][] matrix;
 
-  public ArrayBasedMatrix(int numRows, int numCols) {
-    ConcurrentArrayList matrix = new ConcurrentArrayList<>();
-    for (int i = 0; i < numRows; i++) {
-      matrix.add(new Double[numCols]);
-    }
-    this.matrix = matrix;
+  public ArrayBasedMatrix(int rows, int cols) {
+    this.matrix = new double[rows][cols];
   }
 
   @Override
   public double get(int row, int column) {
-    return matrix.get(row)[column];
+    return matrix[row][column];
   }
 
   @Override
   public void set(int row, int column, double value) {
-    matrix.get(row)[column] = value;
+    matrix[row][column] = value;
   }
 
   @Override
   public int getNumRows() {
-    return matrix.size();
+    return matrix.length;
   }
 
   @Override
   public int getNumColumns() {
-    return matrix.get(0).length;
+    return matrix[0].length;
   }
 }
+
